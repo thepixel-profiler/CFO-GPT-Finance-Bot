@@ -2,18 +2,19 @@ import streamlit as st
 import os
 from rag_engine import process_pdf_to_vector_db, answer_query
 
+# 1. Page Configuration
 st.set_page_config(page_title="The CFO-GPT", page_icon="💰")
 
-# Sidebar: File Upload & Monetization
+# 2. Sidebar: File Upload & Monetization
 with st.sidebar:
     st.header("📂 Financial Docs")
     uploaded_file = st.file_uploader("Upload an Annual Report (PDF)", type="pdf")
     
     if uploaded_file is not None:
-        # --- FIX: Create folder if it doesn't exist ---
+        # --- FIX: Create folder if it doesn't exist on the server ---
         if not os.path.exists("data_source"):
             os.makedirs("data_source")
-        # ----------------------------------------------
+        # ------------------------------------------------------------
 
         save_path = os.path.join("data_source", uploaded_file.name)
         with open(save_path, "wb") as f:
@@ -31,11 +32,12 @@ with st.sidebar:
     st.markdown("---")
     st.header("🚀 Build This Yourself")
     st.write("Get the complete Source Code & Setup Guide.")
-    st.link_button("📥 Download Starter Kit (₹299)", "PASTE_YOUR_GUMROAD_LINK_HERE")
+    # REPLACE THE LINK BELOW WITH YOUR REAL GUMROAD LINK
+    st.link_button("📥 Download Starter Kit (₹299)", "https://gumroad.com/") 
     st.info("Perfect for students building a portfolio.")
     # ----------------------------
 
-# Main Chat Interface
+# 3. Main Chat Interface
 st.title("💰 The CFO-GPT")
 st.markdown("Your **Private Financial Analyst**. Upload a report to begin.")
 
@@ -47,15 +49,15 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# User Input
+# Handle User Input
 prompt = st.chat_input("Ask a question about the report...")
 if prompt:
-    # 1. Display User Message
+    # A. Display User Message
     with st.chat_message("user"):
         st.markdown(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-    # 2. Get AI Response
+    # B. Get AI Response
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
             response = answer_query(prompt)
