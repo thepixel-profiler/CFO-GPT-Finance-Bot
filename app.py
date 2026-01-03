@@ -33,7 +33,7 @@ with st.sidebar:
     st.header("🚀 Build This Yourself")
     st.write("Get the complete Source Code & Setup Guide.")
     # REPLACE THE LINK BELOW WITH YOUR REAL GUMROAD LINK
-    st.link_button("📥 Download Starter Kit (₹299)", "https://gumroad.com/") 
+    st.link_button("📥 Download Starter Kit (₹299)", "https://framedmonochrome.gumroad.com/l/cfogptstarterkit") 
     st.info("Perfect for students building a portfolio.")
     # ----------------------------
 
@@ -65,4 +65,3 @@ if prompt:
     st.session_state.messages.append({"role": "assistant", "content": response})
 
 
-    
